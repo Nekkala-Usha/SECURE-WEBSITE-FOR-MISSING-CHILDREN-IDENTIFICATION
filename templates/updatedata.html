@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>Missing Child Face Detection</title>
+  <link rel="icon" href="{{url_for('static',filename='images/mini.png')}}" type="image/icon type">
+
+  <!-- slider stylesheet -->
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/bootstrap.css')}}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Roboto:400,500&display=swap"
+    rel="stylesheet" />
+  <!-- Custom styles for this template -->
+  <link href="{{url_for('static',filename='css/style.css')}}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{{url_for('static',filename='css/responsive.css')}}" rel="stylesheet" />
+</head>
+
+<body>
+  <!-- header section strats -->
+  <header class="header_section">
+    <div class="container"style="margin-left: 164.444;margin-right: 0px;margin-left: 0px;">
+      <nav class="navbar navbar-expand-lg custom_nav-container" style="width: 1354px;">
+        <a class="navbar-brand" href="{{url_for('index')}}">
+          <div class="logo_box">
+            <img src="{{url_for('static',filename='images/logo.png')}}" class="nav-link" href="{{url_for('index')}}"alt=""style="width: 400px;height: 99px;margin-left: 45px;"/>
+          </div>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('admin_home')}}"  style="margin-left: 318px;"> <span class="sr-only">(current)</span></a>
+            </li>
+
+
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('addpolice')}}">Add Police Station</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('addface')}}">Add Missing Child Details</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('trackface')}}">History</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('login1')}}">Log Out</a>
+              </li>
+<!--              <li class="nav-item">-->
+<!--                <a class="nav-link" href="">Emergency</a>-->
+<!--              </li>-->
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <!-- <input class="form-control nav_search-input mr-sm-2 d-none" type="search" placeholder="Search"
+              aria-label="Search" value="" />
+            <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit"></button> -->
+          </form>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <!-- end header section -->
+
+
+
+    <!-- Registration Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <div class="col-lg-5" style="left: 318px;">
+                    <div class="card border-0">
+                      <center>
+			 {% with messages = get_flashed_messages(with_categories=true) %}
+			{% if messages %}
+				{% for category, message in messages %}
+					<div class="alert alert-{{ category }}">
+						{{ message }}
+					</div>
+				{% endfor %}
+			{% endif %}
+		{% endwith %}
+
+		{% block content %} {% endblock %}</center>
+                        <div class="card-header bg-secondary text-center p-4">
+                            <h1 class="text-white m-0">Add Police Station Details</h1>
+                        </div>
+                        <div class="card-body rounded-bottom bg-primary p-5">
+                            <form action="/updateback" method="post">
+
+                                 <input type="hidden" value="{{data[0][0]}}" name="id">
+                                <div class="form-group">
+                                    <input type="text" name="sid" class="form-control border-0 p-4"
+                                        placeholder="Enter Station Id" required="required" pattern="[A-Z]{2}[0-9]{2}[A-Z]{2}[0-9]{2}" title="It must contain 8 characters (number and capital letters)" value="{{data[0][1]}}" />
+                                </div> <div class="form-group">
+                                    <input type="text" name="name" class="form-control border-0 p-4"
+                                        placeholder="Enter Station Name" value="{{data[0][2]}}"  />
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="tel" name="contact" class="form-control border-0 p-4"
+                                        placeholder="Enter Volunteers contact" pattern="[0-9]{10}" title="Enter 10 number" value="{{data[0][3]}}" />
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" name="address" value="{{data[0][4]}}" class="form-control border-0 p-4">
+<!--                                    <textarea id="w3review" name="address" rows="4" cols="39" required="required" placeholder="Enter the full address" class="form-control border-0 p-4" value="{{data[0][4]}}"></textarea>-->
+                                </div>
+
+
+                                <div>
+                                    <button class="btn btn-secondary btn-block border-0 py-3"
+                                        type="submit">Update</button><u>
+                                    <center><a href="view_station_details" style="color:white">View Stations Info</a></u></center>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <header id="gtco-header" role="banner">
+		<div class="overlay"></div>
+		<div class="gtco-container">
+			<div class="row">
+				<div class="col-md-12 col-md-offset-0 text-center">
+					<div class="display-t">
+
+						<div class="display-tc animate-box" data-animate-effect="fadeIn" style="margin-left: 102px;">
+
+							<p>
+
+<style>
+         table,
+         td{
+        padding:10px;
+        border:1px solid rgb(6, 2, 68);
+        border-collapse:collapse;
+        }
+</style>
+        <table style="margin-left: 394px;"><b>
+            <tr>
+                {%for c in columns%}
+                <td style="color:rgb((6, 2, 68));"><b>{{c}}</b></td>
+            {%endfor%}
+            </tr>
+            {%for r in rows%}
+            <tr>
+            {%for j in r%}
+                <td style="color:rgb((6, 2, 68));">{{ j }}</td>
+                {%endfor%}
+            </tr>
+            {%endfor%}
+       </b> </table>
+
+<!--								<a href="/upload" class="btn btn-primary btn-lg">Get Started</a>-->
+<!--								<a href="#" class="btn btn-white btn-outline btn-lg"></a></p>-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- info section -->
+
+    <!-- end info section -->
+
+
+    <!-- footer section -->
+    <section class="container-fluid footer_section">
+        <p>
+            <!-- Copyright &copy; 2019 All Rights Reserved By -->
+            <!-- <a href="https://html.design/">Free Html Templates</a> -->
+        </p>
+    </section>
+    <!-- footer section -->
+
+    <script type="text/javascript" src="{{url_for('static',filename='js/jquery-3.4.1.min.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static',filename='js/bootstrap.js')}}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js">
+    </script>
+    <script type="text/javascript">
+        $(".owl-carousel").owlCarousel({
+            loop: true,
+            margin: 20,
+            nav: true,
+            navText: [],
+            autoplay: true,
+            autoplayHoverPause: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 2
+                },
+                1000: {
+                    items: 3
+                }
+            }
+        });
+    </script>
+
+    <script>
+        $(".nav_search-btn").click(function () {
+            if ($(".nav_search-input").hasClass("d-none")) {
+                event.preventDefault();
+                $(".nav_search-input")
+                    .animate({
+                        left: "-1000px"
+                    },
+                        "1000000"
+                    )
+                    .removeClass("d-none");
+            } else {
+                $(".nav_search-input")
+                    .animate({
+                        left: "0px"
+                    },
+                        "1000000"
+                    )
+                    .addClass("d-none");
+            }
+        });
+    </script>
+
+
+
+
+
+</body>
+
+</html>
